@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Author, Book, BookInstance, Genre
 
 # Create your views here.
@@ -12,7 +13,6 @@ def index(request):
     ).count()
     num_authors = Author.objects.all().count()
     num_genres = Genre.objects.all().count()
-    num_books_with_ipsum = Book.objects.filter(summary__contains="ipsum").count()
 
     context = {
         "num_books": num_books,
@@ -20,7 +20,21 @@ def index(request):
         "num_book_instances_available": num_book_instances_available,
         "num_authors": num_authors,
         "num_genres": num_genres,
-        "num_books_with_ipsum": num_books_with_ipsum,
     }
 
     return render(request, "index.html", context=context)
+
+
+class BookListView(ListView):
+    """View for returning all books"""
+
+    model = Book
+    template_name = "book_list.html"
+    context_object_name = "book_list"
+    queryset = Book.objects.all()
+
+
+class BookDetailView(DetailView):
+    model = Book
+    template_name = "book_detail.html"
+    context_object_name = "book_detail"
