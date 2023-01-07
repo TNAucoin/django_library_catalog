@@ -15,6 +15,18 @@ class Genre(models.Model):
         return self.name
 
 
+class Language(models.Model):
+    """Model representing a book's language"""
+
+    name = models.CharField(
+        max_length=200, help_text="Enter the book's natural language."
+    )
+
+    def __str__(self):
+        """String repr of the model object"""
+        return self.name
+
+
 class Book(models.Model):
     """Model representing a book"""
 
@@ -29,6 +41,8 @@ class Book(models.Model):
     )
     # M2M used because genre can contain many books, and books can cover many genres
     genre = models.ManyToManyField(Genre, help_text="Select genre for this book")
+    # FK for language as a book can be in one language but many books can be a part of a single language.
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
