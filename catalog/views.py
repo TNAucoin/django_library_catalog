@@ -32,9 +32,29 @@ class BookListView(ListView):
     template_name = "book_list.html"
     context_object_name = "book_list"
     queryset = Book.objects.all()
+    paginate_by = 5
 
 
 class BookDetailView(DetailView):
+    """View for a single book instance"""
+
     model = Book
     template_name = "book_detail.html"
     context_object_name = "book_detail"
+
+
+class AuthorDetailView(DetailView):
+    """View for a single Author instance"""
+
+    model = Author
+    template_name = "author_detail.html"
+    context_object_name = "author_detail"
+
+
+class AuthorListView(ListView):
+    """View for list of Author instance"""
+
+    model = Author
+    context_object_name = "author_list"
+    template_name = "author_list.html"
+    paginate_by = 5

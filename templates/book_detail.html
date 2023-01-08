@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Title: {{ book_detail.title }}</h1>
 
-  <p><strong>Author:</strong> <a href="">{{ book_detail.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Author:</strong> <a href="{% url "author-detail" book_detail.author.pk %}">{{ book_detail.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Summary:</strong> {{ book_detail.summary }}</p>
   <p><strong>ISBN:</strong> {{ book_detail.isbn }}</p>
   <p><strong>Language:</strong> {{ book_detail.language }}</p>
