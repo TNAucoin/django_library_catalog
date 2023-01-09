@@ -13,13 +13,16 @@ def index(request):
     ).count()
     num_authors = Author.objects.all().count()
     num_genres = Genre.objects.all().count()
-
+    # number of visits from this user from session data
+    num_visits = request.session.get("num_visits", 0)
+    request.session["num_visits"] = num_visits + 1
     context = {
         "num_books": num_books,
         "num_book_instances": num_book_instances,
         "num_book_instances_available": num_book_instances_available,
         "num_authors": num_authors,
         "num_genres": num_genres,
+        "num_visits": num_visits,
     }
 
     return render(request, "index.html", context=context)
